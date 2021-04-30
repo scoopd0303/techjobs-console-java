@@ -1,8 +1,8 @@
 package org.launchcode.techjobs.console;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.security.Key;
+import java.util.*;
+import java.util.Collections;
 
 /**
  * Created by LaunchCode
@@ -10,6 +10,8 @@ import java.util.Scanner;
 public class TechJobs {
 
     private static Scanner in = new Scanner(System.in);
+    private int i;
+    private ArrayList<HashMap<String, String>> someJobs;
 
     public static void main (String[] args) {
 
@@ -42,6 +44,7 @@ public class TechJobs {
                 } else {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
+                    Collections.sort(results);
 
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
 
@@ -61,7 +64,8 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+//                    System.out.println("Search all fields not yet implemented.");
+                    printJobs((JobData.findByValue(searchTerm)));
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -111,6 +115,20 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+//        System.out.println("printJobs is not implemented yet");
+//        HashMap<String, String> jobRecords;
+        if(someJobs.size() == 0) {
+            System.out.println("No jobs fit your search query");
+        } else {
+
+            for (HashMap<String, String> listing : someJobs) {
+                System.out.println("*****");
+                for (Map.Entry<String, String> detail : listing.entrySet()) {
+                    System.out.println(detail.getKey() + " : " + detail.getValue());
+                }
+                System.out.println("*****\n" );
+            }
+
+        }
     }
 }
